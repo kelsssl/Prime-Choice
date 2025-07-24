@@ -133,8 +133,12 @@
       //float: left;
       width: 92px;
       height: 92px;
-      padding-top: 10px;
+      padding-top: 0px;
       border: 1px solid #ededed;
+      display:flex;
+      flex-direction: column;// 垂直排列
+      align-items: center;// 水平居中
+      justify-content: center;// 垂直居中
 
       .iconfont {
         font-size: 36px;
