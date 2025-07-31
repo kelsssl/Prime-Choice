@@ -7,3 +7,39 @@ export function getBannerAPI() {
     url:'/home/banner'  // API的URL
   })
 }
+
+//封装获取首页新鲜好物的API
+/**
+ * @description: 获取新鲜好物
+ * @param {*}
+ * @return {*}
+ */
+export const findNewAPI = () => {
+  return httpInstance({
+    url:'/home/new'
+  })
+}
+
+//封装获取首页人气推荐的API
+/**
+ * @description: 获取人气推荐
+ * @param {*}
+ * @return {*}
+ */
+export const getHotAPI = () => {
+  return httpInstance({
+    url:'/home/hot'
+  })
+}
+
+//封装获取所有商品模块
+/**
+ * @description: 获取所有商品模块
+ * @param {*}
+ * @return {*}
+ */
+export const getGoodsAPI = () => {
+  return httpInstance({
+    url:'/home/goods'
+  })
+}
