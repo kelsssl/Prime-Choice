@@ -2,9 +2,14 @@ import httpInstance from "@/utils/http";  // 引入HTTP请求实例
 //默认导出不要加{}
 
 //封装获取首页轮播图banner的API
-export function getBannerAPI() {
+export function getBannerAPI(params = {}) {
+  //默认首页为1，商品详情页为2
+  const { distributionSite = '1' } = params; // 如果没有传入参数，则默认为1
   return httpInstance({
-    url:'/home/banner'  // API的URL
+    url: '/home/banner',  // API的URL
+    params: {  // 请求参数
+      distributionSite
+    }
   })
 }
 
@@ -16,7 +21,7 @@ export function getBannerAPI() {
  */
 export const findNewAPI = () => {
   return httpInstance({
-    url:'/home/new'
+    url: '/home/new'
   })
 }
 
@@ -28,7 +33,7 @@ export const findNewAPI = () => {
  */
 export const getHotAPI = () => {
   return httpInstance({
-    url:'/home/hot'
+    url: '/home/hot'
   })
 }
 
@@ -40,6 +45,6 @@ export const getHotAPI = () => {
  */
 export const getGoodsAPI = () => {
   return httpInstance({
-    url:'/home/goods'
+    url: '/home/goods'
   })
 }
