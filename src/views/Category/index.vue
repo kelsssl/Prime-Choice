@@ -43,7 +43,7 @@ const { categoryData } = useCategory(); // 使用自定义组合式函数获取�
     <h3>全部分类</h3>
     <ul>
       <li v-for="i in categoryData.children" :key="i.id">
-        <RouterLink to="/">
+        <RouterLink :to="`/category/sub/${i.id}`">
           <img :src="i.picture" />
           <p>{{ i.name }}</p>
         </RouterLink>
