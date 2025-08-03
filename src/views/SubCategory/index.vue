@@ -27,6 +27,25 @@ const getGoodList = async () => {
 }
 onMounted(() => getGoodList())
 
+//tab切换回调
+const tabChange = () => {
+  reqData.value.page = 1; // 重置页码为1
+  getGoodList(); // 重新获取商品列表
+}
+
+//加载更多商品
+const disabled = ref(false); // 用于控制是否禁用加载更多功能
+const load = async () => {
+  //获取下一页的数据
+  reqData.value.page++;
+  const res = await getSubCategoryAPI(reqData.value);
+  // 将新获取的商品拼接到现有列表中
+  goodList.value = [...goodList.value, ...res.result.items];
+  // 加载完毕停止监听
+  if (res.result.items.length === 0 ){
+    disabled.value = true; // 如果没有更多商品，禁用加载更多
+  }
+}
 </script>
 
 <template>
@@ -41,12 +60,12 @@ onMounted(() => getGoodList())
       </el-breadcrumb>
     </div>
     <div class="sub-container">
-      <el-tabs>
+        <el-tabs v-model="reqData.sortField" @tab-change="tabChange"><!-- 为组件库标签添加tab事件双向绑定 -->
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <div class="body" v-infinite-scroll="load" :infinit-scroll-disabled="disabled">
          <!-- 商品列表-->
         <GoodsItem v-for="good in goodList" :goods="good" :key="good.id"></GoodsItem>
       </div>
