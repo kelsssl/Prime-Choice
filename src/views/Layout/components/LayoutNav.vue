@@ -1,5 +1,17 @@
 <script setup>
+import { useRouter } from "vue-router";
+const router=useRouter()
+import { useUserStore } from "@/stores/user";
+const userStore = useUserStore()
 
+const confirm = () =>{
+  //退出登录业务逻辑实现
+  //1.清除用户信息，触发action
+  console.log('用户要退出登录了')
+  userStore.clearUserInfo()
+  //2.跳转到登录页面
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -9,8 +21,10 @@
     <div class="container">
       <!-- 导航项列表 -->
       <ul>
+        <!-- 多模板渲染，区分登录状态和非登录状态 -->
+        <!-- 根据有无token：登录时显示第一块，非登录显示第二块 -->
         <!--条件渲染-->
-        <template v-if="true">
+        <template v-if="userStore.userInfo.token">
           <!-- 如果条件为真（已登录），显示以下内容 -->
 
             <!-- 1. 用户名显示 -->
@@ -18,7 +32,7 @@
               <a href="javascript:;">
                 <!-- href="javascript:;" 防止点击链接后页面刷新 -->
                 <i class="iconfont icon-user"></i><!--用户图标-->
-                周杰伦<!--用户名-->
+                {{userStore.userInfo.account}}<!--用户名-->
               </a>
             </li>
 
@@ -28,7 +42,10 @@
               使用了 Element Plus 的气泡确认框组件 <el-popconfirm>
               这是一个复合组件，它本身不可见，需要一个“触发器”。
               -->
-              <el-popconfirm
+              <!-- @confirm是v-on:confirm 的语法糖，监听非原生DOM事件 -->
+              <!--点击 <el-popconfirm>内部的“确认”按钮时，组件的逻辑会执行 this.$emit('confirm') -->
+              <!-- 也就是点击确认按钮（子组件），父组件（整个区域）会调用confirm方法 -->
+              <el-popconfirm @confirm="confirm"
                 title="确认退出吗？"
                 conform-button-text="确认"
                 cancel-button-text="取消">
@@ -55,7 +72,7 @@
          <template v-else>
           <!-- 如果 v-if 的条件为假（未登录），显示以下内容 -->
           <!--1.登录提示-->
-          <li><a href="javascript:;">请先登录</a></li>
+          <li><a href="javascript:;" @click="router.push('/login')">请先登录</a></li>
 
           <!--2.帮助中心-->
           <li><a href="javascript:;">帮助中心</a></li>
