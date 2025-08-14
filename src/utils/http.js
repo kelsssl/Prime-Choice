@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from "@/stores/user";
 import router from '@/router'
 const httpInstance = axios.create({
-  baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
+  baseURL: '/api',
   timeout: 50000
 })
 
