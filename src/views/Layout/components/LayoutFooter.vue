@@ -32,7 +32,7 @@
         <dl class="download-app">
           <dt>下载APP</dt>
           <div class="dd-wrapper">
-          <dd class="qrcode"><img src="@/assets/images/qrcode.jpg" /></dd><!-- 二维码图片 -->
+          <dd class="qrcode"><img src="@/assets/images/qrcode.webp" /></dd><!-- 二维码图片 -->
           <dd class="download"><!--下载文字和按钮-->
             <span>扫描二维码</span>
             <span>立马下载APP</span>

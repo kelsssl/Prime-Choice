@@ -7,7 +7,6 @@ const userStore = useUserStore()
 const confirm = () =>{
   //退出登录业务逻辑实现
   //1.清除用户信息，触发action
-  console.log('用户要退出登录了')
   userStore.clearUserInfo()
   //2.跳转到登录页面
   router.push('/login')
